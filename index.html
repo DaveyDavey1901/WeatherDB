@@ -1,12 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+    integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
   <title>Weather Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="./style.css" />
 </head>
+
 <body>
-  
+  <header class="text-center bg-success text-white p-3">
+    <h1 class="font-weight-bold"><i class="fas fa-sun"></i> Weather Dashboard <i class="fas fa-cloud-rain"></i></h1>
+  </header>
+
+  <main class="row p-2 m-5">
+    <section class="col-12 col-md-3">
+
+      <!-- Search for your required city here -->
+      <form class="card bg-white">
+        <h4 class="card-header text-uppercase text-center bg-primary text-white">Search for a City <i
+            class="fas fa-city"></i></h4>
+        <div class="input-group m-3" id="city-srch-form">
+          <input type="text" class="form-input input-group-text col-8 mr-2" id="city-srch-input" name="city" />
+          <button type="button" class="btn btn-info" id="city-srch-btn"><i class="fas fa-search-location"></i></button>
+        </div>
+      </form>
+
+      <!-- list of recent previous searches -->
+      <list class="card bg-white mt-4" id="recent-cities">
+        <h4 class="card-header text-uppercase text-center bg-primary text-white">Recent <br> Cities <i
+            class="fas fa-city"></i></h4>
+      </list>
+    </section>
+
+    <section class="col-12 col-md-9 forecast hide">
+      <!-- city's current forecast -->
+      <article class="card bg-white mt-4 mt-md-0">
+        <h3 class="card-header text-uppercase bg-primary text-white">Today's Forecast</h3>
+        <div class="container">
+          <div class="row mt-3">
+            <h4 class="ml-2">
+              <img class="weather-icon" id="today-icon" />
+              <span class="pl-2" id="city-placeholder">City Placeholder</span>
+            </h4>
+          </div>
+          <div class="row">
+            <ul class="col-12 col-md-6">
+              <li class="pl-2">Current Temperature: <span id="current-temp"></span> &deg;F</li>
+              <li class="pl-2">High: <span id="current-high"></span> &deg;F</li>
+              <li class="pl-2">Low: <span id="current-low"></span> &deg;F</li>
+            </ul>
+            <ul class="col-12 col-md-6">
+              <li class="pl-2">Humidity: <span id="current-humidity"></span>%</li>
+              <li class="pl-2">Wind Speed: <span id="current-wind-speed"></span> MPH</li>
+              <li class="pl-2">UV Index: <span id="current-uvi"></span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- forecast for the next 5 days for city selected-->
+      <section class="card bg-white mt-3">
+        <h3 class="card-header text-uppercase bg-primary text-white">The Forcast for the next 5-Days</h3>
+        <div class="container p-2">
+          <div class="row row-cols-1 row-cols-md-5">
+
+            <!-- day 1 forcast-->
+            <article class="col">
+              <div class="card bg-success text-white p-2 mb-3 mb-md-0">
+                <p class="badge badge-light mb-1" id="date-1"></p>
+                <h4 class="align-middle">
+                  <img class="weather-icon" id="icon-1">
+                  <span id="temp-1"></span> &deg;F
+                </h4>
+                <p class="mb-1 ml-2">High: <span id="high-1"></span> &deg;F</p>
+                <p class="mb-1 ml-2">Low: <span id="low-1"></span> &deg;F</p>
+                <p class="mb-1 ml-2">Humidity: <span id="humidity-1"></span>%</p>
+              </div>
+            </article>
+            <!-- day 2 forcast-->
+            <article class="col">
+              <div class="card bg-success text-white p-2 mb-3 mb-md-0">
+                <p class="badge badge-light mb-1" id="date-2"></p>
+                <h4 class="align-middle">
+                  <img class="weather-icon" id="icon-2">
+                  <span id="temp-2"></span> &deg;F
+                </h4>
+                <p class="mb-1 ml-2">High: <span id="high-2"></span> &deg;F</p>
+                <p class="mb-1 ml-2">Low: <span id="low-2"></span> &deg;F</p>
+                <p class="mb-1 ml-2">Humidity: <span id="humidity-2"></span>%</p>
+              </div>
+            </article>
+            <!-- day 2 forcast-->
+            <article class="col">
+              <div class="card bg-success text-white p-2 mb-3 mb-md-0">
+                <p class="badge badge-light mb-1" id="date-3"></p>
+                <h4 class="align-middle">
+                  <img class="weather-icon" id="icon-3">
+                  <span id="temp-3"></span> &deg;F
+                </h4>
+                <p class="mb-1 ml-2">High: <span id="high-3"></span> &deg;F</p>
+                <p class="mb-1 ml-2">Low: <span id="low-3"></span> &deg;F</p>
+                <p class="mb-1 ml-2">Humidity: <span id="humidity-3"></span>%</p>
+              </div>
+            </article>
+            <!-- day 2 forcast-->
+            <article class="col">
+              <div class="card bg-success text-white p-2 mb-3 mb-md-0">
+                <p class="badge badge-light mb-1" id="date-4"></p>
+                <h4 class="align-middle">
+                  <img class="weather-icon" id="icon-4">
+                  <span id="temp-4"></span> &deg;F
+                </h4>
+                <p class="mb-1 ml-2">High: <span id="high-4"></span> &deg;F</p>
+                <p class="mb-1 ml-2">Low: <span id="low-4"></span> &deg;F</p>
+                <p class="mb-1 ml-2">Humidity: <span id="humidity-4"></span>%</p>
+              </div>
+            </article>
+            <!-- day 2 forcast-->
+            <article class="col">
+              <div class="card bg-success text-white p-2 mb-3 mb-md-0">
+                <p class="badge badge-light mb-1" id="date-5"></p>
+                <h4 class="align-middle">
+                  <img class="weather-icon" id="icon-5">
+                  <span id="temp-5"></span> &deg;F
+                </h4>
+                <p class="mb-1 ml-2">High: <span id="high-5"></span> &deg;F</p>
+                <p class="mb-1 ml-2">Low: <span id="low-5"></span> &deg;F</p>
+                <p class="mb-1 ml-2">Humidity: <span id="humidity-5"></span>%</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="./script.js"></script>
 </body>
+
 </html>
