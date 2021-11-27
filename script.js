@@ -2,11 +2,17 @@ var citySrchInput = document.querySelector("#city-srch-input");
 var citySrchBtn = document.querySelector("#city-srch-btn");
 var cityNameEl = document.querySelector("#city-name");
 var cityArr = [];
-var apiKey = "1d8cf787e2c996be6b44d48d9aaf4a93";
+var apiKey = "aded95d03c66a91f2fd2f8899e03ddf9";
+var city = "london"
 
 
-var getLocation = function (city) {
-  var currentForcastApi = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+  var currentForcastApi = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   
-  fetch(currentForcastApi);
-}
+     fetch(currentForcastApi)
+     .then(function (response) {
+       return response.json();
+     })
+     .then(function (data) {
+       console.log(data);
+       
+     });
