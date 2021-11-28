@@ -42,7 +42,12 @@ var getCityData = function (city) {
         var cWindEl = document.querySelector("#current-wind-speed");
         cWindEl.textContent = currentWindSpd;
 
+        if (document.querySelector(".city-list")) {
+          document.querySelector(".city-list").remove();
+        }
+
         storeCity(city);
+        loadCities()
         console.log(data);
       });
   });
@@ -120,3 +125,34 @@ var storeCity = function (city) {
   citiesArray.push(city);
   localStorage.setItem("cities", JSON.stringify(citiesArray));
 };
+
+var loadCities = function () {
+  citiesArray = JSON.parse(localStorage.getItem("cities"));
+
+  if (!citiesArray) {
+    citiesArray = [];
+    return false;
+  } else if (citiesArray.length > 5) {
+    // saves only the five most recent cities
+    citiesArray.shift();
+  }
+
+  var recentCities = document.querySelector("#recent-cities");
+  var cityListUl = document.createElement("ul");
+  cityListUl.className = "list-group list-group-flush city-list";
+  recentCities.appendChild(cityListUl);
+
+  for (var i = 0; i < citiesArray.length; i++) {
+    var cityListItem = document.createElement("button");
+    cityListItem.setAttribute("type", "button");
+    cityListItem.className = "list-group-item";
+    cityListItem.setAttribute("value", citiesArray[i]);
+    cityListItem.textContent = citiesArray[i];
+    cityListUl.prepend(cityListItem);
+  }
+
+  var cityList = document.querySelector(".city-list");
+  cityList.addEventListener("click", selectRecent);
+  
+};
+
