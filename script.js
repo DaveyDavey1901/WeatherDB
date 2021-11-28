@@ -2,6 +2,7 @@ var citySrchInput = document.querySelector("#city-srch-input");
 var citySrchBtn = document.querySelector("#city-srch-btn");
 var cityEl = document.querySelector("#city-placeholder");
 var citiesArray = [];
+var citiesArchive = [];
 var apiKey = "aded95d03c66a91f2fd2f8899e03ddf9";
 
 var getCityData = function (city) {
@@ -41,7 +42,7 @@ var getCityData = function (city) {
         var cWindEl = document.querySelector("#current-wind-speed");
         cWindEl.textContent = currentWindSpd;
 
-        storeCity(city)
+        storeCity(city);
         console.log(data);
       });
   });
@@ -78,8 +79,30 @@ var oneCallForcast = function (city, lon, lat) {
             cUviIndex.className = "badge text-light";
             cUviIndex.setAttribute("style", "background-color: #f2d6fa");
         }
-        
-        
+        for (var i = 1; i < 6; i++) {
+          var datePresent = document.querySelector("#date-" + i);
+          datePresent.textContent = moment()
+            .add(i, "days")
+            .format("DD/MM/YYYY");
+
+          var dailyTemp = data.daily[i].temp.day;
+          var dailyHigh = data.daily[i].temp.max;
+          var dailyLow = data.daily[i].temp.min;
+          var dailyHum = data.daily[i].humidity;
+
+          var dTempEl = document.querySelector("#temp-" + i);
+          dTempEl.textContent = dailyTemp;
+
+          var dHighEl = document.querySelector("#high-" + i);
+          dHighEl.textContent = dailyHigh;
+
+          var dLowEl = document.querySelector("#low-" + i);
+          dLowEl.textContent = dailyLow;
+
+          var dHumEl = document.querySelector("#humidity-" + i);
+          dHumEl.textContent = dailyHum;
+        }
+        fiveDayForcast();
 
         console.log(data);
       });
@@ -88,7 +111,6 @@ var oneCallForcast = function (city, lon, lat) {
 };
 
 var storeCity = function (city) {
-  // prevents duplicate city from being saved and moves it to end of array
   for (var i = 0; i < citiesArray.length; i++) {
     if (city === citiesArray[i]) {
       citiesArray.splice(i, 1);
