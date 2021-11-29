@@ -139,7 +139,8 @@ var setCity = function (city) {
   localStorage.setItem("cities", JSON.stringify(citiesArray));
 };
 
-// This function retreaves
+// This function retreaves the city list from local storage and creates a list of buttons.
+// How to create a list of buttons i found on stack overflow.
 var getCities = function () {
   citiesArray = JSON.parse(localStorage.getItem("cities"));
 
