@@ -8,13 +8,18 @@ var apiKey = "aded95d03c66a91f2fd2f8899e03ddf9";
 var getCityData = function () {
   citySrchBtn.addEventListener("click", (e) => {
     e.preventDefault();
+
     var city = citySrchInput.value;
 
     var currentForcastApi = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
     fetch(currentForcastApi)
       .then(function (response) {
-        return response.json();
+        if (response.ok) {
+          return response.json();
+        } else {
+          alert (Error("Please enter a city name."));
+        }
       })
       .then(function (data) {
         var lon = data.coord["lon"];
@@ -48,21 +53,20 @@ var getCityData = function () {
           "src",
           `http://openweathermap.org/img/wn/${cIcon}.png`
         );
-        
+
         if (document.querySelector(".list-cities")) {
           document.querySelector(".list-cities").remove();
         }
 
         setCity(city);
         getCities();
-        
       });
   });
+  
 };
 getCityData();
 
-
-// uses onecall to retrieve all the data available and then use the lat 
+// uses onecall to retrieve all the data available and then use the lat
 //on and long in getCityData to find the right location.
 var oneCallForcast = function (city, lon, lat) {
   var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely,hourly,alerts&appid=${apiKey}`;
@@ -157,6 +161,5 @@ var getCities = function () {
     cListItem.setAttribute("value", citiesArray[i]);
     cListItem.textContent = citiesArray[i];
     cityUl.prepend(cListItem);
-   
   }
 };
