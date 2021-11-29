@@ -36,6 +36,7 @@ I needed to sign up to Open Weather to use their API.  This is a great API with 
 1.  when you press enter it clears local storage.
 2.  after typing city it stays in the field after you submit.
 3.  when the stored cities are displayed as buttons they don't display the city weather details again.. 
+4.  some sizing issues when viewed on smaller devices need to do media queries.
 
 
 **Visuals on Desktop**
