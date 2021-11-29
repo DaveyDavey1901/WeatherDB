@@ -17,38 +17,38 @@ var getCityData = function (city) {
         return response.json();
       })
       .then(function (data) {
-        var city = data.name;
         var lon = data.coord["lon"];
         var lat = data.coord["lat"];
-        var currentTemp = data.main["temp"];
-        var currentHigh = data.main["temp_max"];
-        var currentLow = data.main["temp_min"];
-        var currentHum = data.main["humidity"];
-        var currentWindSpd = data.wind["speed"];
+        var cTemp = data.main["temp"];
+        var cHigh = data.main["temp_max"];
+        var cLow = data.main["temp_min"];
+        var cHum = data.main["humidity"];
+        var cWindSpd = data.wind["speed"];
 
         oneCallForcast(city, lon, lat);
         var cTempEl = document.querySelector("#current-temp");
-        cTempEl.textContent = currentTemp;
+        cTempEl.textContent = cTemp;
 
         var cHighEl = document.querySelector("#current-high");
-        cHighEl.textContent = currentHigh;
+        cHighEl.textContent = cHigh;
 
         var cLowEl = document.querySelector("#current-low");
-        cLowEl.textContent = currentLow;
+        cLowEl.textContent = cLow;
 
         var cHumidityEl = document.querySelector("#current-humidity");
-        cHumidityEl.textContent = currentHum;
+        cHumidityEl.textContent = cHum;
 
         var cWindEl = document.querySelector("#current-wind-speed");
-        cWindEl.textContent = currentWindSpd;
+        cWindEl.textContent = cWindSpd;
 
         if (document.querySelector(".city-list")) {
           document.querySelector(".city-list").remove();
         }
 
-        storeCity(city);
-        loadCities()
+        setCity(city);
+        getCities()
         console.log(data);
+        
       });
   });
 };
@@ -107,15 +107,15 @@ var oneCallForcast = function (city, lon, lat) {
           var dHumEl = document.querySelector("#humidity-" + i);
           dHumEl.textContent = dailyHum;
         }
-        fiveDayForcast();
-
-        console.log(data);
+        
       });
     }
   });
 };
 
-var storeCity = function (city) {
+// this function is responsible for setting the inputed city to the local storage 
+//and removing any doubles... part of this function was found on stack overflow.
+var setCity = function (city) {
   for (var i = 0; i < citiesArray.length; i++) {
     if (city === citiesArray[i]) {
       citiesArray.splice(i, 1);
@@ -126,33 +126,23 @@ var storeCity = function (city) {
   localStorage.setItem("cities", JSON.stringify(citiesArray));
 };
 
-var loadCities = function () {
+// This function retreaves 
+var getCities = function () {
   citiesArray = JSON.parse(localStorage.getItem("cities"));
 
-  if (!citiesArray) {
-    citiesArray = [];
-    return false;
-  } else if (citiesArray.length > 5) {
-    // saves only the five most recent cities
-    citiesArray.shift();
-  }
-
   var recentCities = document.querySelector("#recent-cities");
-  var cityListUl = document.createElement("ul");
-  cityListUl.className = "list-group list-group-flush city-list";
-  recentCities.appendChild(cityListUl);
+  var cityUl = document.createElement("ul");
+  cityUl.className = "list-group list-group-flush city-list";
+  recentCities.appendChild(cityUl);
 
   for (var i = 0; i < citiesArray.length; i++) {
-    var cityListItem = document.createElement("button");
-    cityListItem.setAttribute("type", "button");
-    cityListItem.className = "list-group-item";
-    cityListItem.setAttribute("value", citiesArray[i]);
-    cityListItem.textContent = citiesArray[i];
-    cityListUl.prepend(cityListItem);
+    var cListItem = document.createElement("button");
+    cListItem.setAttribute("type", "button");
+    cListItem.className = "list-group-item";
+    cListItem.setAttribute("value", citiesArray[i]);
+    cListItem.textContent = citiesArray[i];
+    cityUl.prepend(cListItem);
   }
 
-  var cityList = document.querySelector(".city-list");
-  cityList.addEventListener("click", selectRecent);
-  
 };
 
