@@ -5,7 +5,7 @@ var citiesArray = [];
 var citiesArchive = [];
 var apiKey = "aded95d03c66a91f2fd2f8899e03ddf9";
 
-var getCityData = function (city) {
+var getCityData = function () {
   citySrchBtn.addEventListener("click", (e) => {
     e.preventDefault();
     var city = citySrchInput.value;
@@ -55,28 +55,29 @@ var getCityData = function (city) {
 
         setCity(city);
         getCities();
-        console.log(data);
+        
       });
   });
 };
-
 getCityData();
 
-// uses onecall to retrieve all the data available
+
+// uses onecall to retrieve all the data available and then use the lat 
+//on and long in getCityData to find the right location.
 var oneCallForcast = function (city, lon, lat) {
   var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely,hourly,alerts&appid=${apiKey}`;
   fetch(oneCall).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
         cityEl.textContent = `${city} (${moment().format("DD/MM/YYYY")})`;
-        //current forcast variables
+        //current forcast variables could not find this value in the city call to the API.
         var cUvi = data.current["uvi"];
 
         var cUviIndex = document.querySelector("#current-uvi");
 
         cUviIndex.textContent = cUvi;
 
-        // styles UV index
+        // styles UV index bootstrap bades and colors
         switch (true) {
           case cUvi <= 2:
             cUviIndex.className = "badge badge-success";
@@ -156,5 +157,6 @@ var getCities = function () {
     cListItem.setAttribute("value", citiesArray[i]);
     cListItem.textContent = citiesArray[i];
     cityUl.prepend(cListItem);
+   
   }
 };
