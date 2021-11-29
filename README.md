@@ -35,8 +35,8 @@ I needed to sign up to Open Weather to use their API.  This is a great API with 
 **Errors At The Moment To Address**
 1.  when you press enter it clears local storage.
 2.  after typing city it stays in the field after you submit.
-3.  when the passed cities are displayed the buttons don't work.
-4.  icons are not working.
+3.  when the stored cities are displayed the buttons don't work.
+
 
 **Visuals on Desktop**
 

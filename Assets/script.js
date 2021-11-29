@@ -24,8 +24,10 @@ var getCityData = function (city) {
         var cLow = data.main["temp_min"];
         var cHum = data.main["humidity"];
         var cWindSpd = data.wind["speed"];
+        var cIcon = data.weather[0].icon;
 
         oneCallForcast(city, lon, lat);
+
         var cTempEl = document.querySelector("#current-temp");
         cTempEl.textContent = cTemp;
 
@@ -41,14 +43,19 @@ var getCityData = function (city) {
         var cWindEl = document.querySelector("#current-wind-speed");
         cWindEl.textContent = cWindSpd;
 
-        if (document.querySelector(".city-list")) {
-          document.querySelector(".city-list").remove();
+        var cIconEl = document.querySelector("#today-icon");
+        cIconEl.setAttribute(
+          "src",
+          `http://openweathermap.org/img/wn/${cIcon}.png`
+        );
+        
+        if (document.querySelector(".list-cities")) {
+          document.querySelector(".list-cities").remove();
         }
 
         setCity(city);
-        getCities()
+        getCities();
         console.log(data);
-        
       });
   });
 };
@@ -94,6 +101,7 @@ var oneCallForcast = function (city, lon, lat) {
           var dailyHigh = data.daily[i].temp.max;
           var dailyLow = data.daily[i].temp.min;
           var dailyHum = data.daily[i].humidity;
+          var iconCode = data.daily[i].weather[0].icon;
 
           var dTempEl = document.querySelector("#temp-" + i);
           dTempEl.textContent = dailyTemp;
@@ -106,14 +114,19 @@ var oneCallForcast = function (city, lon, lat) {
 
           var dHumEl = document.querySelector("#humidity-" + i);
           dHumEl.textContent = dailyHum;
+
+          var iconImg = document.querySelector("#icon-" + i);
+          iconImg.setAttribute(
+            "src",
+            `http://openweathermap.org/img/wn/${iconCode}.png`
+          );
         }
-        
       });
     }
   });
 };
 
-// this function is responsible for setting the inputed city to the local storage 
+// this function is responsible for setting the inputed city to the local storage
 //and removing any doubles... part of this function was found on stack overflow.
 var setCity = function (city) {
   for (var i = 0; i < citiesArray.length; i++) {
@@ -126,23 +139,21 @@ var setCity = function (city) {
   localStorage.setItem("cities", JSON.stringify(citiesArray));
 };
 
-// This function retreaves 
+// This function retreaves
 var getCities = function () {
   citiesArray = JSON.parse(localStorage.getItem("cities"));
 
   var recentCities = document.querySelector("#recent-cities");
   var cityUl = document.createElement("ul");
-  cityUl.className = "list-group list-group-flush city-list";
+  cityUl.className = "list-group list-group-item-info list-cities";
   recentCities.appendChild(cityUl);
 
   for (var i = 0; i < citiesArray.length; i++) {
     var cListItem = document.createElement("button");
     cListItem.setAttribute("type", "button");
-    cListItem.className = "list-group-item";
+    cListItem.className = "list-group-item list-group-item-info";
     cListItem.setAttribute("value", citiesArray[i]);
     cListItem.textContent = citiesArray[i];
     cityUl.prepend(cListItem);
   }
-
 };
-
