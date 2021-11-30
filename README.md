@@ -33,9 +33,8 @@ I wanted to design this piece of homework in a fun and colourful way as i wanted
 I needed to sign up to Open Weather to use their API.  This is a great API with a huge amount of data to utilise. 
 
 **Errors At The Moment To Address**
-1.  when you press enter it clears local storage.
-2.  when the stored cities are displayed as buttons they don't display the city weather details again.. 
-3.  some sizing issues when viewed on smaller devices need to do media queries.
+1.  when you press enter it clears local storage when inputting a city... only works with button click.
+2.  some sizing issues when viewed on smaller devices need to do media queries.
 
 
 **Visuals on Desktop**
