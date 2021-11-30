@@ -1,3 +1,4 @@
+var citySrchform = document.querySelector("#city-srch-form");
 var citySrchInput = document.querySelector("#city-srch-input");
 var citySrchBtn = document.querySelector("#city-srch-btn");
 var cityEl = document.querySelector("#city-placeholder");
@@ -6,80 +7,77 @@ var citiesArchive = [];
 var apiKey = "aded95d03c66a91f2fd2f8899e03ddf9";
 var currentSearchitem = "";
 
-citySrchInput.addEventListener('keyup', (e) => {
-  if  (e.keycode === 13 ){
-    e.preventDefault
+citySrchform.addEventListener("keyup", (e) => {
+  if (e.keycode === 13) {
+    e.preventDefault;
     GetCityData(e);
-  }});
+  }
+});
 
-  citySrchBtn.addEventListener("click", (e) => {
-   
-    e.preventDefault();
-    GetCityData(e);
-  });
+citySrchBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  GetCityData(e);
+});
 
-function GetCityData(city) {  
+function GetCityData(city) {
+  var city = citySrchInput.value;
 
-    var city = citySrchInput.value;
+  var currentForcastApi = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
-    var currentForcastApi = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  fetch(currentForcastApi)
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        alert(Error("Please enter a city name."));
+      }
+    })
+    .then(function (data) {
+      var lon = data.coord["lon"];
+      var lat = data.coord["lat"];
+      var cTemp = data.main["temp"];
+      var cHigh = data.main["temp_max"];
+      var cLow = data.main["temp_min"];
+      var cHum = data.main["humidity"];
+      var cWindSpd = data.wind["speed"];
+      var cIcon = data.weather[0].icon;
 
-    fetch(currentForcastApi)
-      .then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          alert (Error("Please enter a city name."));
-        }
-      })
-      .then(function (data) {
-        var lon = data.coord["lon"];
-        var lat = data.coord["lat"];
-        var cTemp = data.main["temp"];
-        var cHigh = data.main["temp_max"];
-        var cLow = data.main["temp_min"];
-        var cHum = data.main["humidity"];
-        var cWindSpd = data.wind["speed"];
-        var cIcon = data.weather[0].icon;
+      oneCallForcast(city, lon, lat);
 
-        oneCallForcast(city, lon, lat);
+      var cTempEl = document.querySelector("#current-temp");
+      cTempEl.textContent = cTemp;
 
-        var cTempEl = document.querySelector("#current-temp");
-        cTempEl.textContent = cTemp;
+      var cHighEl = document.querySelector("#current-high");
+      cHighEl.textContent = cHigh;
 
-        var cHighEl = document.querySelector("#current-high");
-        cHighEl.textContent = cHigh;
+      var cLowEl = document.querySelector("#current-low");
+      cLowEl.textContent = cLow;
 
-        var cLowEl = document.querySelector("#current-low");
-        cLowEl.textContent = cLow;
+      var cHumidityEl = document.querySelector("#current-humidity");
+      cHumidityEl.textContent = cHum;
 
-        var cHumidityEl = document.querySelector("#current-humidity");
-        cHumidityEl.textContent = cHum;
+      var cWindEl = document.querySelector("#current-wind-speed");
+      cWindEl.textContent = cWindSpd;
 
-        var cWindEl = document.querySelector("#current-wind-speed");
-        cWindEl.textContent = cWindSpd;
+      var cIconEl = document.querySelector("#today-icon");
+      cIconEl.setAttribute(
+        "src",
+        `http://openweathermap.org/img/wn/${cIcon}.png`
+      );
 
-        var cIconEl = document.querySelector("#today-icon");
-        cIconEl.setAttribute(
-          "src",
-          `http://openweathermap.org/img/wn/${cIcon}.png`
-        );
+      if (document.querySelector(".list-cities")) {
+        document.querySelector(".list-cities").remove();
+      }
 
-        if (document.querySelector(".list-cities")) {
-          document.querySelector(".list-cities").remove();
-        }
-
-        setCity(city);
-        getCities();
-        citySrchInput.value = "";
-      });
-   
-};
-
+      setCity(city);
+      getCities();
+      citySrchInput.value = "";
+    });
+}
 
 // uses onecall to retrieve all the data available and then use the lat
 //on and long in getCityData to find the right location.
- function oneCallForcast(city, lon, lat) {
+function oneCallForcast(city, lon, lat) {
   var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely,hourly,alerts&appid=${apiKey}`;
   fetch(oneCall).then(function (response) {
     if (response.ok) {
@@ -140,11 +138,11 @@ function GetCityData(city) {
       });
     }
   });
-};
+}
 
 // this function is responsible for setting the inputed city to the local storage
 //and removing any doubles... part of this function was found on stack overflow.
- function setCity(city) {
+function setCity(city) {
   for (var i = 0; i < citiesArray.length; i++) {
     if (city === citiesArray[i]) {
       citiesArray.splice(i, 1);
@@ -153,11 +151,11 @@ function GetCityData(city) {
 
   citiesArray.push(city);
   localStorage.setItem("cities", JSON.stringify(citiesArray));
-};
+}
 
 // This function retreaves the city list from local storage and creates a list of buttons.
 // How to create a list of buttons i found on stack overflow.
- function getCities() {
+function getCities() {
   citiesArray = JSON.parse(localStorage.getItem("cities"));
 
   var recentCities = document.querySelector("#recent-cities");
@@ -171,10 +169,10 @@ function GetCityData(city) {
     cListItem.className = "list-group-item list-group-item-info";
     cListItem.setAttribute("value", citiesArray[i]);
     cListItem.textContent = citiesArray[i];
-    cListItem.addEventListener('click', (e) => { 
-      citySrchInput.value = e.currentTarget.innerText;    
+    cListItem.addEventListener("click", (e) => {
+      citySrchInput.value = e.currentTarget.innerText;
       citySrchBtn.click(this);
     });
     cityUl.prepend(cListItem);
   }
-};
+}
