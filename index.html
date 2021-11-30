@@ -26,11 +26,10 @@
         <h4 class="card-header text-uppercase text-center bg-primary text-white">Search for a City <i
             class="fas fa-city"></i></h4>
         <div class="input-group m-3" id="city-srch-form">
-          <input type="text" class="form-input input-group-text col-8 mr-2" id="city-srch-input" name="city" />
+          <input type="text" class="form-input input-group-text col-8 mr-2 tableInput" id="city-srch-input" name="city"  onkeypress="return inputCity(event)" />
           <button type="button" class="btn btn-info" id="city-srch-btn"><i class="fas fa-search-location"></i></button>
         </div>
       </form>
-
       <!-- list of recent previous searches -->
       <list class="card bg-white mt-4" id="recent-cities">
         <h4 class="card-header text-uppercase text-center bg-primary text-white">Recent <br> Cities <i

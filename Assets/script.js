@@ -7,12 +7,16 @@ var citiesArchive = [];
 var apiKey = "aded95d03c66a91f2fd2f8899e03ddf9";
 var currentSearchitem = "";
 
-citySrchform.addEventListener("keyup", (e) => {
-  if (e.keycode === 13) {
-    e.preventDefault;
+function inputCity(e) {
+  e = e || window.event;
+  var key = e.keyCode;
+  if (key == 13) {
+    
+    e.preventDefault();
     GetCityData(e);
+    return true; 
   }
-});
+}
 
 citySrchBtn.addEventListener("click", (e) => {
   e.preventDefault();
