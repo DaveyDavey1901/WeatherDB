@@ -4,10 +4,21 @@ var cityEl = document.querySelector("#city-placeholder");
 var citiesArray = [];
 var citiesArchive = [];
 var apiKey = "aded95d03c66a91f2fd2f8899e03ddf9";
+var currentSearchitem = "";
 
-var getCityData = function () {
+citySrchInput.addEventListener('keyup', (e) => {
+  if  (e.keycode === 13 ){
+    e.preventDefault
+    GetCityData(e);
+  }});
+
   citySrchBtn.addEventListener("click", (e) => {
+   
     e.preventDefault();
+    GetCityData(e);
+  });
+
+function GetCityData(city) {  
 
     var city = citySrchInput.value;
 
@@ -60,15 +71,15 @@ var getCityData = function () {
 
         setCity(city);
         getCities();
+        citySrchInput.value = "";
       });
-  });
-  
+   
 };
-getCityData();
+
 
 // uses onecall to retrieve all the data available and then use the lat
 //on and long in getCityData to find the right location.
-var oneCallForcast = function (city, lon, lat) {
+ function oneCallForcast(city, lon, lat) {
   var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely,hourly,alerts&appid=${apiKey}`;
   fetch(oneCall).then(function (response) {
     if (response.ok) {
@@ -133,7 +144,7 @@ var oneCallForcast = function (city, lon, lat) {
 
 // this function is responsible for setting the inputed city to the local storage
 //and removing any doubles... part of this function was found on stack overflow.
-var setCity = function (city) {
+ function setCity(city) {
   for (var i = 0; i < citiesArray.length; i++) {
     if (city === citiesArray[i]) {
       citiesArray.splice(i, 1);
@@ -146,7 +157,7 @@ var setCity = function (city) {
 
 // This function retreaves the city list from local storage and creates a list of buttons.
 // How to create a list of buttons i found on stack overflow.
-var getCities = function () {
+ function getCities() {
   citiesArray = JSON.parse(localStorage.getItem("cities"));
 
   var recentCities = document.querySelector("#recent-cities");
@@ -160,6 +171,10 @@ var getCities = function () {
     cListItem.className = "list-group-item list-group-item-info";
     cListItem.setAttribute("value", citiesArray[i]);
     cListItem.textContent = citiesArray[i];
+    cListItem.addEventListener('click', (e) => { 
+      citySrchInput.value = e.currentTarget.innerText;    
+      citySrchBtn.click(this);
+    });
     cityUl.prepend(cListItem);
   }
 };
