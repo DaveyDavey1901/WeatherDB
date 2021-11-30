@@ -33,16 +33,20 @@ I wanted to design this piece of homework in a fun and colourful way as i wanted
 I needed to sign up to Open Weather to use their API.  This is a great API with a huge amount of data to utilise. 
 
 **Errors At The Moment To Address**
+<<<<<<< HEAD
 1.  tidy up the margins and padding so it adjusts better as screen size is reduced.
+=======
+1.  when you press enter it resets the page... only works with button click. This makes it difficult on mobile.
+>>>>>>> fac0a14dc0fb61694d9a2a4f1dac90f969cca4a8
 
 
 
-**Visuals on Desktop**
+**Visuals on Different Devices**
 
-| Weather Dashboard    |
-|----------------------|
-|<img src="Assets/weatherdash.png" width="500">|
-
+| Desktop              |Mobile |
+|----------------------|-------|
+|<img src="Assets/weatherdash.png" width="500">|<img src="Assets/WDBMobile.png" width="500">|
+Assets/WDBMobile.png
       
 **Acknowledgment**
 
