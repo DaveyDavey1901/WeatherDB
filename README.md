@@ -37,12 +37,12 @@ I needed to sign up to Open Weather to use their API.  This is a great API with 
 
 
 
-**Visuals on Desktop**
+**Visuals on Different Devices**
 
-| Weather Dashboard    |
-|----------------------|
-|<img src="Assets/weatherdash.png" width="500">|
-
+| Desktop              |Mobile |
+|----------------------|-------|
+|<img src="Assets/weatherdash.png" width="500">|<img src="Assets/WDBMobile.png" width="500">|
+Assets/WDBMobile.png
       
 **Acknowledgment**
 
