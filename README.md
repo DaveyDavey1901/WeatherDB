@@ -34,7 +34,7 @@ I needed to sign up to Open Weather to use their API.  This is a great API with 
 
 **Errors At The Moment To Address**
 1.  when you press enter it clears local storage when inputting a city... only works with button click.
-2.  some sizing issues when viewed on smaller devices need to do media queries.
+
 
 
 **Visuals on Desktop**
