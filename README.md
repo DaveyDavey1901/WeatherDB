@@ -33,7 +33,7 @@ I wanted to design this piece of homework in a fun and colourful way as i wanted
 I needed to sign up to Open Weather to use their API.  This is a great API with a huge amount of data to utilise. 
 
 **Errors At The Moment To Address**
-1.  when you press enter it clears local storage when inputting a city... only works with button click.
+1.  when you press enter it resets the page... only works with button click. This makes it difficult on mobile.
 
 
 
