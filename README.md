@@ -3,7 +3,9 @@
 [Weather Dashboard](https://daveydavey1901.github.io/WeatherDB/)
 
 **Description**
+This is a weather dashboard that can be used on all devices to show the current weather and the five day forecast for that location.  you can also retreive the information from any of the previous searches in the sesson from clicking on the button on the right that is generated as you search.
 
+**Requirement**
 **in this weeks assignment you had to create a Weather Dashboard utilising HTML, CSS and JavaScript. you had to ensure the following:-**
 
 GIVEN a weather dashboard with form inputs
