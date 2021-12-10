@@ -42,7 +42,7 @@ I needed to sign up to Open Weather to use their API.  This is a great API with 
 | Desktop              |Mobile |
 |----------------------|-------|
 |<img src="Assets/weatherdash.png" width="500">|<img src="Assets/WDBMobile.png" width="500">|
-Assets/WDBMobile.png
+
       
 **Acknowledgment**
 
