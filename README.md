@@ -60,3 +60,7 @@ I needed to sign up to Open Weather to use their API.  This is a great API with 
   
 **Future Plans**<br>
  This is a project i do want to expand on and include more of the data that is available for the Open Weather Api Maps, Historic Weather, links to weather related webpages... and much more.. this will then be used in my Teachers TooBox Project.
+
+## License
+
+[MIT License](LICENSE)
